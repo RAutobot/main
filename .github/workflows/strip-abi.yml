@@ -20,7 +20,9 @@ jobs:
         run: printf "%s\n" "FILENAME=$(curl -sSfLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
 
       - name: Strip
-        run: zip -q -d "$FILENAME" "lib/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*" || true
+        run: |
+          zip -q -d "$FILENAME" "lib/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*" || true
+          cksum -a sha256 "$FILENAME"
 
       - name: Upload
         uses: actions/upload-artifact@v7
