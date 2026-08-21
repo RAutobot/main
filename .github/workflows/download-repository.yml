@@ -1,0 +1,28 @@
+name: Download Repository
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: Repository
+        required: true
+      reference:
+        description: Reference
+      path:
+        description: Path
+        required: true
+
+jobs:
+  download-repository:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ inputs.repository }}
+          ref: ${{ inputs.reference }}
+
+      - name: Upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: output
+          path: ${{ inputs.path }}
