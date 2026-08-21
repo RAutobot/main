@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download
-        run: printf "%s\n" "FILENAME=$(curl -sSfLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
+        run: printf "%s\n" "FILENAME=$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
 
       - name: Strip and compute SHA-256
         run: |
