@@ -17,7 +17,7 @@ jobs:
 
       - name: Strip and checksum
         run: |
-          zip -q -d "$FILENAME" "lib/armeabi-v7a/*" "lib/x86/*" "lib/x86_64/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*"
+          zip -q -d "$FILENAME" "lib/armeabi-v7a/*" "lib/x86/*" "lib/x86_64/*" "META-INF/*"
 
           cksum -a sha256 "$FILENAME"
           7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
