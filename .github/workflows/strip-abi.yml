@@ -21,7 +21,7 @@ jobs:
 
       - name: Strip and compute SHA-256
         run: |
-          zip -q -d "$FILENAME" "lib/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*" || true
+          zip -q -d "$FILENAME" "lib/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*"
           cksum -a sha256 "$FILENAME"
 
       - name: Upload
