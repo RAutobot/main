@@ -1,4 +1,4 @@
-name: Checksum
+name: Compute SHA-256
 on:
   workflow_dispatch:
     inputs:
@@ -9,13 +9,13 @@ on:
         required: true
 
 jobs:
-  checksum:
+  compute-sha256:
     runs-on: ubuntu-latest
     steps:
       - name: Download
         run: printf "%s\n" "FILENAME=$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
 
-      - name: Compute SHA-256
+      - name: Compute
         run: |
           cksum -a sha256 "$FILENAME"
           7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
