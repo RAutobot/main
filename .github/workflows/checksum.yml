@@ -1,4 +1,5 @@
 name: Checksum
+run-name: Checksum (${{ inputs.strip-abi }})
 on:
   workflow_dispatch:
     inputs:
