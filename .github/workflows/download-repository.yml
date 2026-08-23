@@ -24,5 +24,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v7
         with:
-          name: output
+          name: artifact
           path: ${{ inputs.path }}
