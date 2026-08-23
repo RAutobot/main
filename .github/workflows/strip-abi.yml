@@ -19,13 +19,17 @@ jobs:
       - name: Download
         run: printf "%s\n" "FILENAME=$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
 
-      - name: Strip and compute SHA-256
-        run: |
-          zip -q -d "$FILENAME" "lib/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*" || true
-          cksum -a sha256 "$FILENAME"
+      - name: Strip
+        run: zip -q -d "$FILENAME" "lib/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*" || true
 
       - name: Upload
         uses: actions/upload-artifact@v7
         with:
-          name: output
+          archive: false
+          path: ${{ env.FILENAME }}
+
+      - name: Upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.FILENAME }}.zip
           path: ${{ env.FILENAME }}
