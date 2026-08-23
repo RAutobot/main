@@ -18,8 +18,11 @@ jobs:
       - name: Compute SHA-256
         run: cksum -a sha256 "$FILENAME"
 
+      - name: Compress
+        run: 7z a -mx=9 output.7z "$FILENAME"
+
       - name: Upload
         uses: actions/upload-artifact@v7
         with:
-          name: output
-          path: ${{ env.FILENAME }}
+          archive: false
+          path: output.7z
