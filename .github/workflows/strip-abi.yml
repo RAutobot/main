@@ -7,10 +7,6 @@ on:
       url:
         description: URL
         required: true
-      abi-to-keep:
-        description: ABI to keep
-        type: choice
-        options: [arm64-v8a, armeabi-v7a, x86, x86_64]
 
 jobs:
   strip-abi:
@@ -19,9 +15,9 @@ jobs:
       - name: Download
         run: printf "%s\n" "FILENAME=$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
 
-      - name: Strip and compute SHA-256
+      - name: Strip and checksum
         run: |
-          zip -q -d "$FILENAME" "lib/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*"
+          zip -q -d "$FILENAME" "lib/armeabi-v7a/*" "lib/x86/*" "lib/x86_64/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*"
 
           cksum -a sha256 "$FILENAME"
           7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
