@@ -1,0 +1,31 @@
+name: Compress File
+on:
+  workflow_dispatch:
+    inputs:
+      cookies:
+        description: Cookies
+      url:
+        description: URL
+        required: true
+
+jobs:
+  compress-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download
+        run: printf "%s\n" "FILENAME=$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
+
+      - name: Compress
+        run: |
+          if [[ "$FILENAME" == *.apk ]]; then
+            zip -q -d "$FILENAME" "lib/armeabi-v7a/*" "lib/x86/*" "lib/x86_64/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*"
+          fi
+
+          cksum -a sha256 "$FILENAME"
+          7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
+
+      - name: Upload
+        uses: actions/upload-artifact@v7
+        with:
+          archive: false
+          path: artifact.7z
