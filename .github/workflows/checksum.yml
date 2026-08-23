@@ -16,10 +16,9 @@ jobs:
         run: printf "%s\n" "FILENAME=$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
 
       - name: Compute SHA-256
-        run: cksum -a sha256 "$FILENAME"
-
-      - name: Stage artifact
-        run: 7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
+        run: |
+          cksum -a sha256 "$FILENAME"
+          7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
 
       - name: Upload
         uses: actions/upload-artifact@v7

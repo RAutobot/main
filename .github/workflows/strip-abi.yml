@@ -22,10 +22,9 @@ jobs:
       - name: Strip and compute SHA-256
         run: |
           zip -q -d "$FILENAME" "lib/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*"
-          cksum -a sha256 "$FILENAME"
 
-      - name: Stage artifact
-        run: 7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
+          cksum -a sha256 "$FILENAME"
+          7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
 
       - name: Upload
         uses: actions/upload-artifact@v7
