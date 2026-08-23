@@ -1,0 +1,34 @@
+name: Strip ABI
+on:
+  workflow_dispatch:
+    inputs:
+      cookies:
+        description: Cookies
+      url:
+        description: URL
+        required: true
+      abi-to-keep:
+        description: ABI to keep
+        type: choice
+        options: [arm64-v8a, armeabi-v7a, x86, x86_64]
+
+jobs:
+  strip-abi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download
+        run: printf "%s\n" "FILENAME=$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
+
+      - name: Strip and compute SHA-256
+        run: |
+          zip -q -d "$FILENAME" "lib/*" "META-INF/*" -x "lib/${{ inputs.abi-to-keep }}/*"
+          cksum -a sha256 "$FILENAME"
+
+      - name: Stage artifact
+        run: 7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
+
+      - name: Upload
+        uses: actions/upload-artifact@v7
+        with:
+          archive: false
+          path: artifact.7z
