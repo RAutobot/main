@@ -23,4 +23,3 @@ jobs:
         with:
           name: output
           path: ${{ env.FILENAME }}
-          compression-level: 9
