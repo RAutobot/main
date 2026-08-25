@@ -3,11 +3,11 @@ run-name: Compress Videos (${{ inputs.max-resolution }}p, ${{ inputs.include-aud
 on:
   workflow_dispatch:
     inputs:
-      cookies:
-        description: Cookies
       urls:
         description: URLs
         required: true
+      cookies:
+        description: Cookies
       max-resolution:
         description: Max resolution
         options: [1080, 720, 480, 360, 240, 144]
