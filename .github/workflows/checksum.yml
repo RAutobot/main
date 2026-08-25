@@ -3,11 +3,11 @@ run-name: Checksum (${{ inputs.strip-abi && 'Strip ABI' || 'No Strip ABI' }})
 on:
   workflow_dispatch:
     inputs:
-      cookies:
-        description: Cookies
       url:
         description: URL
         required: true
+      cookies:
+        description: Cookies
       strip-abi:
         description: Strip ABI
         type: boolean
