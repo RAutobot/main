@@ -39,5 +39,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ github.workflow }}
+          tag_name: ${{ github.workflow }}-artifacts
           files: artifact.7z
