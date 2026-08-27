@@ -16,5 +16,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v7
         with:
-          name: artifact
+          archive: false
           path: "*/images/boot.img"
