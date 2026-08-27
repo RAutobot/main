@@ -20,6 +20,8 @@ on:
 jobs:
   compress-videos:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     strategy:
       matrix:
         url: ${{ fromJson(inputs.urls) }}
