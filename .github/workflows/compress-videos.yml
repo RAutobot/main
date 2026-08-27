@@ -55,4 +55,4 @@ jobs:
     steps:
       - uses: actions/upload-artifact/merge@v7
         with:
-          name: "!${{ github.run_number }}"
+          name: output
