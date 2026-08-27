@@ -28,8 +28,8 @@ jobs:
           cksum -a sha256 "$FILENAME"
           7z a -m0=lzma2 -mx=9 artifact.7z "$FILENAME"
 
-      - name: Upload
-        uses: actions/upload-artifact@v7
+      - name: Release
+        uses: softprops/action-gh-release@v3
         with:
-          archive: false
-          path: artifact.7z
+          tag_name: artifacts
+          files: artifact.7z
