@@ -9,8 +9,6 @@ on:
 jobs:
   extract-boot-image:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Extract boot image
         run: curl -sSL "${{ inputs.fastboot-rom-url }}" | tar -xz -f - --occurrence --wildcards "*/images/boot.img"
@@ -18,5 +16,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v7
         with:
-          archive: false
+          name: artifact
           path: "*/images/boot.img"

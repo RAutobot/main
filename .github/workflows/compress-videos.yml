@@ -54,5 +54,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/upload-artifact/merge@v7
-        with:
-          name: output
