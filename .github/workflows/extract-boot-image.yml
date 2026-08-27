@@ -16,6 +16,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ github.workflow }}
+          tag_name: ${{ github.run_id }}
           name: Artifacts
           files: "*/images/boot.img"
