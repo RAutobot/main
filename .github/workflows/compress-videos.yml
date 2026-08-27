@@ -42,15 +42,9 @@ jobs:
             ${{ inputs.include-audio && '-c:a libopus' || '-an' }} \
             "$OUTPUT_FILENAME"
 
-      - name: Upload
-        uses: actions/upload-artifact@v7
+      - name: Release
+        uses: softprops/action-gh-release@v3
         with:
-          archive: false
-          path: ${{ env.OUTPUT_FILENAME }}
-
-  merge-artifacts:
-    needs: compress-videos
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/upload-artifact/merge@v7
+          tag_name: ${{ github.workflow }}
+          name: Artifacts
+          files: ${{ env.OUTPUT_FILENAME }}
