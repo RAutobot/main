@@ -33,6 +33,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: Checksum
+          tag_name: ${{ github.workflow }}
           name: Artifacts
           files: ${{ env.FILENAME }}.7z
