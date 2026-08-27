@@ -15,6 +15,8 @@ on:
 jobs:
   checksum:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Download
         run: printf "%s\n" "FILENAME=$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
