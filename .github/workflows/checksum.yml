@@ -39,5 +39,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: checksum-artifacts
+          tag_name: checksum
+          name: Artifacts
           files: artifact.7z
