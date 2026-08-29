@@ -55,6 +55,8 @@ jobs:
     steps:
       - name: Download
         uses: actions/download-artifact@v8
+        with:
+          merge-multiple: true
 
       - name: Archive
         run: 7z a -m0=lzma2 -mx=9 !archive.7z .
