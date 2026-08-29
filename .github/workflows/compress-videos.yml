@@ -10,12 +10,12 @@ on:
         description: Cookies
       max-resolution:
         description: Max resolution
+        default: "144"
         options: [1080, 720, 480, 360, 240, 144]
         type: choice
       include-audio:
         description: Include audio
         type: boolean
-        default: true
 
 jobs:
   compress-videos:
