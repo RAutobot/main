@@ -15,7 +15,7 @@ jobs:
           curl -sSL "${{ inputs.fastboot-rom-url }}" | tar -xz -f - --occurrence --wildcards "*/images/boot.img"
           cksum -a sha256 */images/boot.img
 
-      - name: Compress
+      - name: Archive
         run: 7z a -m0=lzma2 -mx=9 archive.7z .
 
       - name: Upload
