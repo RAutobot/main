@@ -57,10 +57,10 @@ jobs:
         uses: actions/download-artifact@v8
 
       - name: Archive
-        run: 7z a -m0=lzma2 -mx=9 archive.7z .
+        run: 7z a -m0=lzma2 -mx=9 !archive.7z .
 
       - name: Upload
         uses: actions/upload-artifact@v7
         with:
           archive: false
-          path: archive.7z
+          path: !archive.7z
