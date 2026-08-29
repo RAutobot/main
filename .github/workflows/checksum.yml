@@ -1,5 +1,5 @@
 name: Checksum
-run-name: Checksum (${{ inputs.strip-abi && 'Strip ABI' || 'No Strip ABI' }})
+run-name: Checksum (${{ inputs.strip-abi && 'Filter ABIs' }})
 on:
   workflow_dispatch:
     inputs:
@@ -8,8 +8,8 @@ on:
         required: true
       cookies:
         description: Cookies
-      strip-abi:
-        description: Strip ABI
+      filter-abis:
+        description: Filter ABIs
         type: boolean
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
 
       - name: Checksum
         run: |
-          if [[ "${{ inputs.strip-abi }}" == "true" ]]; then
+          if [[ "${{ inputs.filter-abis }}" == "true" ]]; then
             zip -q -d "$FILENAME" "lib/armeabi-v7a/*" "lib/x86/*" "lib/x86_64/*" "META-INF/*"
           fi
 
