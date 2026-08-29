@@ -31,7 +31,7 @@ jobs:
           filename="$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ matrix.url }}")"
           printf "%s\n" "INPUT_FILENAME=$filename" "OUTPUT_FILENAME=${filename%.*}.mkv" >> "$GITHUB_ENV"
 
-      - name: Compress video
+      - name: Compress
         run: |
           ./*/bin/ffmpeg \
             -i "$INPUT_FILENAME" \
@@ -48,12 +48,19 @@ jobs:
           archive: false
           path: ${{ env.OUTPUT_FILENAME }}
 
-  merge:
+  archive:
     needs: compress-videos
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Merge
-        uses: actions/upload-artifact/merge@v7
+      - name: Download
+        uses: actions/download-artifact@v8
+
+      - name: Archive
+        run: 7z a -m0=lzma2 -mx=9 archive.7z .
+
+      - name: Upload
+        uses: actions/upload-artifact@v7
         with:
-          name: videos
+          archive: false
+          path: archive.7z
