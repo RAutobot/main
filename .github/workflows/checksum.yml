@@ -1,5 +1,5 @@
 name: Checksum
-run-name: Checksum (${{ inputs.strip-abi && 'Filter ABIs' }})
+run-name: Checksum (${{ inputs.filter-abis && 'Filter ABIs' }})
 on:
   workflow_dispatch:
     inputs:
