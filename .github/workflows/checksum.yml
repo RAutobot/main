@@ -27,7 +27,7 @@ jobs:
 
           cksum -a sha256 "$FILENAME"
 
-      - name: Compress
+      - name: Archive
         run: 7z a -m0=lzma2 -mx=9 archive.7z .
 
       - name: Upload
