@@ -20,8 +20,6 @@ on:
 jobs:
   compress-videos:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     strategy:
       matrix:
         url: ${{ fromJson(inputs.urls) }}
@@ -44,9 +42,16 @@ jobs:
             ${{ inputs.include-audio && '-c:a libopus' || '-an' }} \
             "$OUTPUT_FILENAME"
 
-      - name: Release
-        uses: softprops/action-gh-release@v3
+      - name: Upload
+        uses: actions/upload-artifact@v7
         with:
-          tag_name: ${{ github.run_id }}
-          name: Artifacts
-          files: ${{ env.OUTPUT_FILENAME }}
+          archive: false
+          path: ${{ env.OUTPUT_FILENAME }}
+
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge
+        uses: actions/upload-artifact/merge@v7
+        with:
+          name: videos
