@@ -1,5 +1,5 @@
 name: Checksum
-run-name: Checksum (${{ inputs.delete-specific-abis && 'Delete Specific ABIs' }})
+run-name: Checksum (${{ inputs.apk && 'APK' || 'No APK' }})
 on:
   workflow_dispatch:
     inputs:
@@ -8,8 +8,8 @@ on:
         required: true
       cookies:
         description: Cookies
-      delete-specific-abis:
-        description: Delete specific ABIs
+      apk:
+        description: APK
         type: boolean
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
 
       - name: Checksum
         run: |
-          if [[ "${{ inputs.delete-specific-abis }}" == "true" ]]; then
+          if [[ "${{ inputs.apk }}" == "true" ]]; then
             zip -q -d "$FILENAME" "lib/armeabi-v7a/*" "lib/x86/*" "lib/x86_64/*" "META-INF/*"
           fi
 
