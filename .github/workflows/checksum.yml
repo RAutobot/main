@@ -16,16 +16,15 @@ jobs:
   checksum:
     runs-on: ubuntu-latest
     steps:
-      - name: Download
-        run: printf "%s\n" "FILENAME=$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")" >> "$GITHUB_ENV"
-
-      - name: Checksum
+      - name: Download and checksum
         run: |
+          filename="$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")"
+
           if [[ "${{ inputs.apk }}" == "true" ]]; then
-            zip -q -d "$FILENAME" "lib/armeabi-v7a/*" "lib/x86/*" "lib/x86_64/*" "META-INF/*"
+            zip -q -d "$filename" "lib/armeabi-v7a/*" "lib/x86/*" "lib/x86_64/*" "META-INF/*"
           fi
 
-          cksum -a sha256 "$FILENAME"
+          cksum -a sha256 "$filename"
 
       - name: Archive
         run: 7z a -m0=lzma2 -mx=9 archive.7z .
