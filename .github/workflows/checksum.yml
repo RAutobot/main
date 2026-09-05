@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Download and run
         run: |
-          filename="$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")"
+          filename="$(curl -sSLOJ -w %{filename_effective} -b "${{ inputs.cookies }}" "${{ inputs.url }}")"
 
           if [[ "${{ inputs.apk }}" == "true" ]]; then
             zip -q -d "$filename" "lib/armeabi-v7a/*" "lib/x86/*" "lib/x86_64/*" "META-INF/*"
