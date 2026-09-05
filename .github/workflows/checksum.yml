@@ -16,7 +16,7 @@ jobs:
   checksum:
     runs-on: ubuntu-latest
     steps:
-      - name: Download and checksum
+      - name: Download and run
         run: |
           filename="$(curl -sSLOJ -w "%{filename_effective}" -b "${{ inputs.cookies }}" "${{ inputs.url }}")"
 
