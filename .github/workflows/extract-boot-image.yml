@@ -10,7 +10,7 @@ jobs:
   extract-boot-image:
     runs-on: ubuntu-latest
     steps:
-      - name: Extract boot image
+      - name: Run
         run: |
           curl -sSL "${{ inputs.fastboot-rom-url }}" | tar -xz -f - --occurrence --wildcards "*/images/boot.img"
           cksum -a sha256 */images/boot.img
